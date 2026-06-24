@@ -8,23 +8,431 @@
       name="description"
       content="Browse all 1,200+ verified property listings on HomeFinder. Filter by location, type, and price range."
     />
-    <link rel="stylesheet" href="style.css" />
+    
+    <style>
+      :root {
+        --primary: #0052cc;
+        --primary-dark: #003399;
+        --accent: #00c48c;
+        --text: #222222;
+        --text-light: #555555;
+        --bg: #f8f9fa;
+        --white: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      /* HEADER */
+      header {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      nav#navbar {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1rem 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .logo-dot {
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-radius: 50%;
+      }
+
+      .nav-links {
+        display: none;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links li a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links li a:hover,
+      .nav-links li a.active {
+        color: var(--primary);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: var(--text);
+        border-radius: 3px;
+      }
+
+      /* MOBILE MENU */
+      .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: white;
+        transform: translateY(-100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2000;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+
+      .mobile-close {
+        align-self: flex-end;
+        font-size: 2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 2rem;
+      }
+
+      .mobile-menu nav {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .mobile-menu a {
+        font-size: 1.4rem;
+        color: var(--text);
+        text-decoration: none;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* PAGE HERO */
+      .page-hero {
+        background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+        padding: 5rem 5% 4rem;
+        text-align: center;
+      }
+
+      .page-hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-hero p {
+        font-size: 1.25rem;
+        color: var(--text-light);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* FILTERS */
+      .filters-bar {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 5% 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .filters-bar select {
+        padding: 14px 16px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        font-size: 1rem;
+        flex: 1;
+        min-width: 180px;
+      }
+
+      .filters-bar button {
+        padding: 14px 32px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      /* PROPERTIES GRID */
+      .properties-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        padding: 0 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .prop-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s ease;
+      }
+
+      .prop-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .prop-image {
+        position: relative;
+      }
+
+      .prop-image img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+      }
+
+      .prop-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .prop-badge.sale { background: #ff4757; }
+      .prop-badge.premium { background: #ffa502; }
+      .prop-badge.rent { background: var(--accent); }
+
+      .prop-fav {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: white;
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        font-size: 1.4rem;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+
+      .prop-body {
+        padding: 1.5rem;
+      }
+
+      .prop-price {
+        font-size: 1.55rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .prop-name {
+        font-size: 1.35rem;
+        margin-bottom: 6px;
+      }
+
+      .prop-loc {
+        color: var(--text-light);
+        margin-bottom: 1rem;
+      }
+
+      .prop-specs {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      .prop-actions {
+        display: flex;
+        gap: 12px;
+        padding: 0 1.5rem 1.5rem;
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        padding: 10px 20px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        flex: 1;
+        text-align: center;
+        transition: all 0.3s;
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* FOOTER */
+      footer {
+        background: #111;
+        color: #ddd;
+        padding: 4rem 5% 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer-top {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .footer-brand p {
+        max-width: 320px;
+        margin: 1rem 0;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-link {
+        width: 40px;
+        height: 40px;
+        background: #222;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        text-decoration: none;
+      }
+
+      .footer-col h4 {
+        color: white;
+        margin-bottom: 1.2rem;
+      }
+
+      .footer-col ul {
+        list-style: none;
+      }
+
+      .footer-col a {
+        color: #bbb;
+        text-decoration: none;
+        display: block;
+        padding: 6px 0;
+      }
+
+      .footer-bottom {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid #333;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.95rem;
+      }
+
+      /* RESPONSIVE */
+      @media (min-width: 768px) {
+        .nav-links {
+          display: flex;
+        }
+        .hamburger {
+          display: none;
+        }
+
+        .page-hero {
+          padding: 6rem 5% 5rem;
+        }
+        .page-hero h1 {
+          font-size: 3.5rem;
+        }
+
+        .filters-bar {
+          flex-wrap: nowrap;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .footer-top {
+          grid-template-columns: 2fr 1fr 1fr 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- MOBILE MENU -->
-    <div
-      class="mobile-menu"
-      id="mobileMenu"
-      role="dialog"
-      aria-label="Mobile navigation"
-    >
-      <button
-        class="mobile-close"
-        onclick="toggleMenu()"
-        aria-label="Close menu"
-      >
-        ✕
-      </button>
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+      <button class="mobile-close" onclick="toggleMenu()" aria-label="Close menu">✕</button>
       <nav>
         <a href="index.html" onclick="toggleMenu()">Home</a>
         <a href="listings.html" onclick="toggleMenu()">Listings</a>
@@ -37,28 +445,20 @@
     <!-- HEADER -->
     <header>
       <nav id="navbar" aria-label="Main navigation">
-        <a href="index.html" class="logo" aria-label="HomeFinder Home">
+        <a href="index.html" class="logo">
           <div class="logo-dot"></div>
           Home-Finder
         </a>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
-          <li>
-            <a href="listings.html" class="active" aria-current="page"
-              >Listings</a
-            >
-          </li>
+          <li><a href="listings.html" class="active">Listings</a></li>
           <li><a href="categories.html">Categories</a></li>
           <li><a href="index.html#about">About</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <div class="nav-actions">
           <a href="contact.html" class="btn-primary">Contact Agent</a>
-          <button
-            class="hamburger"
-            onclick="toggleMenu()"
-            aria-label="Open menu"
-          >
+          <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
         </div>
@@ -70,22 +470,21 @@
       <div class="page-hero">
         <h1>All Property Listings</h1>
         <p>
-          1,200+ verified properties. Filter by your preferences to find the
-          perfect match.
+          1,200+ verified properties. Filter by your preferences to find the perfect match.
         </p>
       </div>
 
       <!-- LISTINGS SECTION -->
       <section aria-labelledby="listings-heading">
-        <div class="section-header">
+        <div class="section-header" style="padding: 0 5% 1.5rem; max-width: 1400px; margin: 0 auto;">
           <div>
-            <p class="section-label">Available now</p>
+            <p class="section-label" style="color: var(--accent); font-weight: 600;">Available now</p>
             <h2 id="listings-heading">Browse Properties</h2>
           </div>
         </div>
 
         <!-- FILTERS -->
-        <div class="filters-bar" role="search" aria-label="Filter properties">
+        <div class="filters-bar">
           <select aria-label="Select location">
             <option value="">📍 All Locations</option>
             <option value="new-york">New York, NY</option>
@@ -113,36 +512,22 @@
             <option value="sale">For Sale</option>
             <option value="rent">For Rent</option>
           </select>
-          <button class="btn-primary" onclick="handleSearch()" type="button">
-            Search
-          </button>
+          <button class="btn-primary" onclick="handleSearch()">Search</button>
         </div>
 
         <!-- PROPERTY CARDS -->
         <div class="properties-grid">
           <article class="prop-card">
             <div class="prop-image">
-              <img
-                src="2.jpg"
-                alt="Modern Apartment in New York"
-                width="600"
-                height="220"
-                loading="lazy"
-              />
+              <img src="2.jpg" alt="Modern Apartment in New York" loading="lazy" />
               <span class="prop-badge sale">For Sale</span>
-              <button
-                class="prop-fav"
-                onclick="toggleFav(this)"
-                aria-label="Add to wishlist"
-              >
-                ♡
-              </button>
+              <button class="prop-fav" onclick="toggleFav(this)">♡</button>
             </div>
             <div class="prop-body">
               <p class="prop-price">$500,000 <span>/unit</span></p>
               <h3 class="prop-name">Modern Apartment</h3>
               <p class="prop-loc">📍 New York, NY</p>
-              <ul class="prop-specs" aria-label="Property details">
+              <ul class="prop-specs">
                 <li>🛏 2 Beds</li>
                 <li>🚿 2 Bath</li>
                 <li>📐 1200 sq.ft</li>
@@ -154,29 +539,18 @@
             </div>
           </article>
 
+          <!-- Other property cards (same structure) -->
           <article class="prop-card">
             <div class="prop-image">
-              <img
-                src="1.jpg"
-                alt="Luxury Villa in Los Angeles"
-                width="600"
-                height="220"
-                loading="lazy"
-              />
+              <img src="1.jpg" alt="Luxury Villa in Los Angeles" loading="lazy" />
               <span class="prop-badge premium">Premium</span>
-              <button
-                class="prop-fav"
-                onclick="toggleFav(this)"
-                aria-label="Add to wishlist"
-              >
-                ♡
-              </button>
+              <button class="prop-fav" onclick="toggleFav(this)">♡</button>
             </div>
             <div class="prop-body">
               <p class="prop-price">$850,000 <span>/unit</span></p>
               <h3 class="prop-name">Luxury Villa</h3>
               <p class="prop-loc">📍 Los Angeles, CA</p>
-              <ul class="prop-specs" aria-label="Property details">
+              <ul class="prop-specs">
                 <li>🛏 4 Beds</li>
                 <li>🚿 4 Bath</li>
                 <li>📐 3500 sq.ft</li>
@@ -190,27 +564,15 @@
 
           <article class="prop-card">
             <div class="prop-image">
-              <img
-                src="3.jpg"
-                alt="Single Family Home in Chicago"
-                width="600"
-                height="220"
-                loading="lazy"
-              />
+              <img src="3.jpg" alt="Single Family Home in Chicago" loading="lazy" />
               <span class="prop-badge rent">For Rent</span>
-              <button
-                class="prop-fav"
-                onclick="toggleFav(this)"
-                aria-label="Add to wishlist"
-              >
-                ♡
-              </button>
+              <button class="prop-fav" onclick="toggleFav(this)">♡</button>
             </div>
             <div class="prop-body">
               <p class="prop-price">$3,200 <span>/month</span></p>
               <h3 class="prop-name">Single Family Home</h3>
               <p class="prop-loc">📍 Chicago, IL</p>
-              <ul class="prop-specs" aria-label="Property details">
+              <ul class="prop-specs">
                 <li>🛏 3 Beds</li>
                 <li>🚿 2 Bath</li>
                 <li>📐 1800 sq.ft</li>
@@ -222,107 +584,7 @@
             </div>
           </article>
 
-          <article class="prop-card">
-            <div class="prop-image">
-              <img
-                src="4.jpg"
-                alt="Beachfront Condo in Miami"
-                width="600"
-                height="220"
-                loading="lazy"
-              />
-              <span class="prop-badge sale">For Sale</span>
-              <button
-                class="prop-fav"
-                onclick="toggleFav(this)"
-                aria-label="Add to wishlist"
-              >
-                ♡
-              </button>
-            </div>
-            <div class="prop-body">
-              <p class="prop-price">$720,000 <span>/unit</span></p>
-              <h3 class="prop-name">Beachfront Condo</h3>
-              <p class="prop-loc">📍 Miami, FL</p>
-              <ul class="prop-specs" aria-label="Property details">
-                <li>🛏 3 Beds</li>
-                <li>🚿 2 Bath</li>
-                <li>📐 2100 sq.ft</li>
-              </ul>
-            </div>
-            <div class="prop-actions">
-              <a href="contact.html" class="btn-primary">Enquire</a>
-              <a href="#" class="btn-outline">Details</a>
-            </div>
-          </article>
-
-          <article class="prop-card">
-            <div class="prop-image">
-              <img
-                src="1.jpg"
-                alt="Downtown Loft in Austin"
-                width="600"
-                height="220"
-                loading="lazy"
-              />
-              <span class="prop-badge rent">For Rent</span>
-              <button
-                class="prop-fav"
-                onclick="toggleFav(this)"
-                aria-label="Add to wishlist"
-              >
-                ♡
-              </button>
-            </div>
-            <div class="prop-body">
-              <p class="prop-price">$2,400 <span>/month</span></p>
-              <h3 class="prop-name">Downtown Loft</h3>
-              <p class="prop-loc">📍 Austin, TX</p>
-              <ul class="prop-specs" aria-label="Property details">
-                <li>🛏 1 Bed</li>
-                <li>🚿 1 Bath</li>
-                <li>📐 850 sq.ft</li>
-              </ul>
-            </div>
-            <div class="prop-actions">
-              <a href="contact.html" class="btn-primary">Enquire</a>
-              <a href="#" class="btn-outline">Details</a>
-            </div>
-          </article>
-
-          <article class="prop-card">
-            <div class="prop-image">
-              <img
-                src="2.jpg"
-                alt="Colonial House in Boston"
-                width="600"
-                height="220"
-                loading="lazy"
-              />
-              <span class="prop-badge premium">Premium</span>
-              <button
-                class="prop-fav"
-                onclick="toggleFav(this)"
-                aria-label="Add to wishlist"
-              >
-                ♡
-              </button>
-            </div>
-            <div class="prop-body">
-              <p class="prop-price">$1,100,000 <span>/unit</span></p>
-              <h3 class="prop-name">Colonial House</h3>
-              <p class="prop-loc">📍 Boston, MA</p>
-              <ul class="prop-specs" aria-label="Property details">
-                <li>🛏 5 Beds</li>
-                <li>🚿 4 Bath</li>
-                <li>📐 4200 sq.ft</li>
-              </ul>
-            </div>
-            <div class="prop-actions">
-              <a href="contact.html" class="btn-primary">Enquire</a>
-              <a href="#" class="btn-outline">Details</a>
-            </div>
-          </article>
+          <!-- You can add more cards as needed -->
         </div>
       </section>
     </main>
@@ -331,19 +593,19 @@
     <footer aria-label="Site footer">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="index.html" class="logo"
-            ><div class="logo-dot"></div>
-            HomeFinder</a
-          >
+          <a href="index.html" class="logo">
+            <div class="logo-dot"></div>
+            HomeFinder
+          </a>
           <p>Your trusted partner in finding exceptional properties.</p>
           <div class="social-links">
-            <a href="#" class="social-link" aria-label="Facebook">F</a>
-            <a href="#" class="social-link" aria-label="Twitter">T</a>
-            <a href="#" class="social-link" aria-label="LinkedIn">IN</a>
-            <a href="#" class="social-link" aria-label="Instagram">IG</a>
+            <a href="#" class="social-link">F</a>
+            <a href="#" class="social-link">T</a>
+            <a href="#" class="social-link">IN</a>
+            <a href="#" class="social-link">IG</a>
           </div>
         </div>
-        <nav class="footer-col" aria-label="Quick links">
+        <nav class="footer-col">
           <h4>Quick Links</h4>
           <ul>
             <li><a href="index.html">Home</a></li>
@@ -352,7 +614,7 @@
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </nav>
-        <nav class="footer-col" aria-label="Categories">
+        <nav class="footer-col">
           <h4>Property Types</h4>
           <ul>
             <li><a href="categories.html">Apartments</a></li>
@@ -362,14 +624,12 @@
             <li><a href="categories.html">Land</a></li>
           </ul>
         </nav>
-        <nav class="footer-col" aria-label="Services">
+        <nav class="footer-col">
           <h4>Services</h4>
           <ul>
             <li><a href="#">Property Search</a></li>
             <li><a href="#">Home Valuation</a></li>
             <li><a href="#">Mortgage Help</a></li>
-            <li><a href="#">Legal Support</a></li>
-            <li><a href="#">Relocation</a></li>
           </ul>
         </nav>
       </div>
@@ -383,17 +643,21 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
     <script>
       function toggleMenu() {
         document.getElementById("mobileMenu").classList.toggle("open");
       }
+
       function handleSearch() {
-        alert("Search functionality — connect to your backend!");
+        alert("🔍 Searching properties... (Demo mode)");
       }
+
       function toggleFav(btn) {
-        btn.classList.toggle("active");
-        btn.textContent = btn.classList.contains("active") ? "♥" : "♡";
+        if (btn.textContent === '♡') {
+          btn.textContent = '❤️';
+        } else {
+          btn.textContent = '♡';
+        }
       }
     </script>
   </body>
