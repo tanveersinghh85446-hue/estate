@@ -1,27 +1,138 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<title>About NestFinder</title>
 
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background: #f4f4f4;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container{
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.about-text{
+    text-align: center;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 35px;
+    font-size: 18px;
+}
+
+.agent-card{
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 5px solid #007bff;
+}
+
+h2{
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+h3{
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.agent-card p{
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Tablet */
+@media (max-width: 768px){
+    .container{
+        padding: 30px;
+    }
+
+    h1{
+        font-size: 32px;
+    }
+
+    .about-text{
+        font-size: 16px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .container{
+        padding: 20px;
+    }
+
+    h1{
+        font-size: 26px;
+    }
+
+    h2{
+        font-size: 22px;
+    }
+
+    h3{
+        font-size: 18px;
+    }
+
+    .about-text,
+    .agent-card p{
+        font-size: 14px;
+    }
+}
+</style>
+
+</head>
 <body>
 
-<h1>About NestFinder</h1>
+<div class="container">
 
-<p>
-NestFinder is a real estate platform helping people
-find their dream homes easily.
-</p>
+    <h1>About NestFinder</h1>
 
-<h2>Top Agent</h2>
+    <p class="about-text">
+        NestFinder is a modern real estate platform that helps people
+        discover their dream homes quickly and easily. We connect buyers,
+        sellers, and agents through a simple and trusted experience.
+    </p>
 
-<h3>John Smith</h3>
+    <div class="agent-card">
+        <h2>Top Agent</h2>
 
-<p>10+ years of experience in real estate.</p>
+        <h3>John Smith</h3>
+
+        <p>
+            10+ years of experience in real estate, helping hundreds of
+            families find the perfect home with expert guidance and trusted
+            market knowledge.
+        </p>
+    </div>
+
+</div>
 
 </body>
 </html>

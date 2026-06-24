@@ -1,24 +1,189 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Categories</title>
-<link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categories — HomeFinder</title>
+    <meta
+      name="description"
+      content="Browse all property categories on HomeFinder — Apartments, Houses, Villas, Commercial, Land, and Vacation Homes."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- MOBILE MENU -->
+    <div
+      class="mobile-menu"
+      id="mobileMenu"
+      role="dialog"
+      aria-label="Mobile navigation"
+    >
+      <button
+        class="mobile-close"
+        onclick="toggleMenu()"
+        aria-label="Close menu"
+      >
+        ✕
+      </button>
+      <nav>
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="listings.html" onclick="toggleMenu()">Listings</a>
+        <a href="categories.html" onclick="toggleMenu()">Categories</a>
+        <a href="index.html#about" onclick="toggleMenu()">About</a>
+        <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      </nav>
+    </div>
 
-<body>
+    <!-- HEADER -->
+    <header>
+      <nav id="navbar" aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="HomeFinder Home">
+          <div class="logo-dot"></div>
+          Home-Finder
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="listings.html">Listings</a></li>
+          <li>
+            <a href="categories.html" class="active" aria-current="page"
+              >Categories</a
+            >
+          </li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="listings.html" class="btn-primary">Browse Homes</a>
+          <button
+            class="hamburger"
+            onclick="toggleMenu()"
+            aria-label="Open menu"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
 
-<h1>Property Categories</h1>
+    <main>
+      <!-- PAGE HERO -->
+      <div class="page-hero">
+        <h1>Property Categories</h1>
+        <p>
+          Find the perfect property type for your needs — from city apartments
+          to vacation retreats.
+        </p>
+      </div>
 
-<ul>
-<li>Apartments</li>
-<li>Houses</li>
-<li>Commercial</li>
-<li>Land</li>
-<li>Vacation Homes</li>
-</ul>
+      <!-- CATEGORIES GRID -->
+      <section aria-labelledby="cats-heading">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Browse by type</p>
+            <h2 id="cats-heading">All Categories</h2>
+          </div>
+          <a href="listings.html" class="view-all">View All Listings →</a>
+        </div>
 
-</body>
+        <div class="categories-grid">
+          <a href="listings.html?type=apartment" class="cat-card">
+            <div class="cat-icon">🏢</div>
+            <strong class="cat-name">Apartments</strong>
+            <span class="cat-count">320 listings</span>
+            <span class="cat-badge">Most Popular</span>
+          </a>
+          <a href="listings.html?type=house" class="cat-card">
+            <div class="cat-icon">🏠</div>
+            <strong class="cat-name">Houses</strong>
+            <span class="cat-count">485 listings</span>
+            <span class="cat-badge">Top Pick</span>
+          </a>
+          <a href="listings.html?type=commercial" class="cat-card">
+            <div class="cat-icon">🏬</div>
+            <strong class="cat-name">Commercial</strong>
+            <span class="cat-count">140 listings</span>
+          </a>
+          <a href="listings.html?type=land" class="cat-card">
+            <div class="cat-icon">🌿</div>
+            <strong class="cat-name">Land</strong>
+            <span class="cat-count">95 listings</span>
+          </a>
+          <a href="listings.html?type=vacation" class="cat-card">
+            <div class="cat-icon">🏖️</div>
+            <strong class="cat-name">Vacation Homes</strong>
+            <span class="cat-count">62 listings</span>
+          </a>
+          <a href="listings.html?type=villa" class="cat-card">
+            <div class="cat-icon">🏰</div>
+            <strong class="cat-name">Villas</strong>
+            <span class="cat-count">38 listings</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer aria-label="Site footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"
+            ><div class="logo-dot"></div>
+            HomeFinder</a
+          >
+          <p>Your trusted partner in finding exceptional properties.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook">F</a>
+            <a href="#" class="social-link" aria-label="Twitter">T</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">IN</a>
+            <a href="#" class="social-link" aria-label="Instagram">IG</a>
+          </div>
+        </div>
+        <nav class="footer-col" aria-label="Quick links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="listings.html">Listings</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Categories">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="listings.html?type=apartment">Apartments</a></li>
+            <li><a href="listings.html?type=house">Houses</a></li>
+            <li><a href="listings.html?type=villa">Villas</a></li>
+            <li><a href="listings.html?type=commercial">Commercial</a></li>
+            <li><a href="listings.html?type=land">Land</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Services">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Property Search</a></li>
+            <li><a href="#">Home Valuation</a></li>
+            <li><a href="#">Mortgage Help</a></li>
+            <li><a href="#">Legal Support</a></li>
+            <li><a href="#">Relocation</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 HomeFinder. All rights reserved.</p>
+        <nav>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      function toggleMenu() {
+        const m = document.getElementById("mobileMenu");
+        m.classList.toggle("open");
+      }
+    </script>
+  </body>
 </html>

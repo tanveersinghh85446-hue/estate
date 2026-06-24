@@ -1,31 +1,400 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Listings</title>
-<link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listings — HomeFinder</title>
+    <meta
+      name="description"
+      content="Browse all 1,200+ verified property listings on HomeFinder. Filter by location, type, and price range."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- MOBILE MENU -->
+    <div
+      class="mobile-menu"
+      id="mobileMenu"
+      role="dialog"
+      aria-label="Mobile navigation"
+    >
+      <button
+        class="mobile-close"
+        onclick="toggleMenu()"
+        aria-label="Close menu"
+      >
+        ✕
+      </button>
+      <nav>
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="listings.html" onclick="toggleMenu()">Listings</a>
+        <a href="categories.html" onclick="toggleMenu()">Categories</a>
+        <a href="index.html#about" onclick="toggleMenu()">About</a>
+        <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      </nav>
+    </div>
 
-<body>
+    <!-- HEADER -->
+    <header>
+      <nav id="navbar" aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="HomeFinder Home">
+          <div class="logo-dot"></div>
+          Home-Finder
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="listings.html" class="active" aria-current="page"
+              >Listings</a
+            >
+          </li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="contact.html" class="btn-primary">Contact Agent</a>
+          <button
+            class="hamburger"
+            onclick="toggleMenu()"
+            aria-label="Open menu"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
 
-<h1>All Property Listings</h1>
+    <main>
+      <!-- PAGE HERO -->
+      <div class="page-hero">
+        <h1>All Property Listings</h1>
+        <p>
+          1,200+ verified properties. Filter by your preferences to find the
+          perfect match.
+        </p>
+      </div>
 
-<div class="card">
-<h3>Modern Apartment</h3>
-<p>$500,000</p>
-</div>
+      <!-- LISTINGS SECTION -->
+      <section aria-labelledby="listings-heading">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Available now</p>
+            <h2 id="listings-heading">Browse Properties</h2>
+          </div>
+        </div>
 
-<div class="card">
-<h3>Luxury Villa</h3>
-<p>$850,000</p>
-</div>
+        <!-- FILTERS -->
+        <div class="filters-bar" role="search" aria-label="Filter properties">
+          <select aria-label="Select location">
+            <option value="">📍 All Locations</option>
+            <option value="new-york">New York, NY</option>
+            <option value="los-angeles">Los Angeles, CA</option>
+            <option value="chicago">Chicago, IL</option>
+            <option value="miami">Miami, FL</option>
+            <option value="austin">Austin, TX</option>
+          </select>
+          <select aria-label="Select property type">
+            <option value="">🏠 Property Type</option>
+            <option value="apartment">Apartment</option>
+            <option value="house">House</option>
+            <option value="villa">Villa</option>
+            <option value="commercial">Commercial</option>
+          </select>
+          <select aria-label="Select price range">
+            <option value="">💰 Price Range</option>
+            <option value="0-200k">Under $200K</option>
+            <option value="200k-500k">$200K – $500K</option>
+            <option value="500k-1m">$500K – $1M</option>
+            <option value="1m+">$1M+</option>
+          </select>
+          <select aria-label="Select listing type">
+            <option value="">🏷 Listing Type</option>
+            <option value="sale">For Sale</option>
+            <option value="rent">For Rent</option>
+          </select>
+          <button class="btn-primary" onclick="handleSearch()" type="button">
+            Search
+          </button>
+        </div>
 
-<div class="card">
-<h3>Family Home</h3>
-<p>$3200/month</p>
-</div>
+        <!-- PROPERTY CARDS -->
+        <div class="properties-grid">
+          <article class="prop-card">
+            <div class="prop-image">
+              <img
+                src="2.jpg"
+                alt="Modern Apartment in New York"
+                width="600"
+                height="220"
+                loading="lazy"
+              />
+              <span class="prop-badge sale">For Sale</span>
+              <button
+                class="prop-fav"
+                onclick="toggleFav(this)"
+                aria-label="Add to wishlist"
+              >
+                ♡
+              </button>
+            </div>
+            <div class="prop-body">
+              <p class="prop-price">$500,000 <span>/unit</span></p>
+              <h3 class="prop-name">Modern Apartment</h3>
+              <p class="prop-loc">📍 New York, NY</p>
+              <ul class="prop-specs" aria-label="Property details">
+                <li>🛏 2 Beds</li>
+                <li>🚿 2 Bath</li>
+                <li>📐 1200 sq.ft</li>
+              </ul>
+            </div>
+            <div class="prop-actions">
+              <a href="contact.html" class="btn-primary">Enquire</a>
+              <a href="#" class="btn-outline">Details</a>
+            </div>
+          </article>
 
-</body>
+          <article class="prop-card">
+            <div class="prop-image">
+              <img
+                src="1.jpg"
+                alt="Luxury Villa in Los Angeles"
+                width="600"
+                height="220"
+                loading="lazy"
+              />
+              <span class="prop-badge premium">Premium</span>
+              <button
+                class="prop-fav"
+                onclick="toggleFav(this)"
+                aria-label="Add to wishlist"
+              >
+                ♡
+              </button>
+            </div>
+            <div class="prop-body">
+              <p class="prop-price">$850,000 <span>/unit</span></p>
+              <h3 class="prop-name">Luxury Villa</h3>
+              <p class="prop-loc">📍 Los Angeles, CA</p>
+              <ul class="prop-specs" aria-label="Property details">
+                <li>🛏 4 Beds</li>
+                <li>🚿 4 Bath</li>
+                <li>📐 3500 sq.ft</li>
+              </ul>
+            </div>
+            <div class="prop-actions">
+              <a href="contact.html" class="btn-primary">Enquire</a>
+              <a href="#" class="btn-outline">Details</a>
+            </div>
+          </article>
+
+          <article class="prop-card">
+            <div class="prop-image">
+              <img
+                src="3.jpg"
+                alt="Single Family Home in Chicago"
+                width="600"
+                height="220"
+                loading="lazy"
+              />
+              <span class="prop-badge rent">For Rent</span>
+              <button
+                class="prop-fav"
+                onclick="toggleFav(this)"
+                aria-label="Add to wishlist"
+              >
+                ♡
+              </button>
+            </div>
+            <div class="prop-body">
+              <p class="prop-price">$3,200 <span>/month</span></p>
+              <h3 class="prop-name">Single Family Home</h3>
+              <p class="prop-loc">📍 Chicago, IL</p>
+              <ul class="prop-specs" aria-label="Property details">
+                <li>🛏 3 Beds</li>
+                <li>🚿 2 Bath</li>
+                <li>📐 1800 sq.ft</li>
+              </ul>
+            </div>
+            <div class="prop-actions">
+              <a href="contact.html" class="btn-primary">Enquire</a>
+              <a href="#" class="btn-outline">Details</a>
+            </div>
+          </article>
+
+          <article class="prop-card">
+            <div class="prop-image">
+              <img
+                src="4.jpg"
+                alt="Beachfront Condo in Miami"
+                width="600"
+                height="220"
+                loading="lazy"
+              />
+              <span class="prop-badge sale">For Sale</span>
+              <button
+                class="prop-fav"
+                onclick="toggleFav(this)"
+                aria-label="Add to wishlist"
+              >
+                ♡
+              </button>
+            </div>
+            <div class="prop-body">
+              <p class="prop-price">$720,000 <span>/unit</span></p>
+              <h3 class="prop-name">Beachfront Condo</h3>
+              <p class="prop-loc">📍 Miami, FL</p>
+              <ul class="prop-specs" aria-label="Property details">
+                <li>🛏 3 Beds</li>
+                <li>🚿 2 Bath</li>
+                <li>📐 2100 sq.ft</li>
+              </ul>
+            </div>
+            <div class="prop-actions">
+              <a href="contact.html" class="btn-primary">Enquire</a>
+              <a href="#" class="btn-outline">Details</a>
+            </div>
+          </article>
+
+          <article class="prop-card">
+            <div class="prop-image">
+              <img
+                src="1.jpg"
+                alt="Downtown Loft in Austin"
+                width="600"
+                height="220"
+                loading="lazy"
+              />
+              <span class="prop-badge rent">For Rent</span>
+              <button
+                class="prop-fav"
+                onclick="toggleFav(this)"
+                aria-label="Add to wishlist"
+              >
+                ♡
+              </button>
+            </div>
+            <div class="prop-body">
+              <p class="prop-price">$2,400 <span>/month</span></p>
+              <h3 class="prop-name">Downtown Loft</h3>
+              <p class="prop-loc">📍 Austin, TX</p>
+              <ul class="prop-specs" aria-label="Property details">
+                <li>🛏 1 Bed</li>
+                <li>🚿 1 Bath</li>
+                <li>📐 850 sq.ft</li>
+              </ul>
+            </div>
+            <div class="prop-actions">
+              <a href="contact.html" class="btn-primary">Enquire</a>
+              <a href="#" class="btn-outline">Details</a>
+            </div>
+          </article>
+
+          <article class="prop-card">
+            <div class="prop-image">
+              <img
+                src="2.jpg"
+                alt="Colonial House in Boston"
+                width="600"
+                height="220"
+                loading="lazy"
+              />
+              <span class="prop-badge premium">Premium</span>
+              <button
+                class="prop-fav"
+                onclick="toggleFav(this)"
+                aria-label="Add to wishlist"
+              >
+                ♡
+              </button>
+            </div>
+            <div class="prop-body">
+              <p class="prop-price">$1,100,000 <span>/unit</span></p>
+              <h3 class="prop-name">Colonial House</h3>
+              <p class="prop-loc">📍 Boston, MA</p>
+              <ul class="prop-specs" aria-label="Property details">
+                <li>🛏 5 Beds</li>
+                <li>🚿 4 Bath</li>
+                <li>📐 4200 sq.ft</li>
+              </ul>
+            </div>
+            <div class="prop-actions">
+              <a href="contact.html" class="btn-primary">Enquire</a>
+              <a href="#" class="btn-outline">Details</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer aria-label="Site footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"
+            ><div class="logo-dot"></div>
+            HomeFinder</a
+          >
+          <p>Your trusted partner in finding exceptional properties.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook">F</a>
+            <a href="#" class="social-link" aria-label="Twitter">T</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">IN</a>
+            <a href="#" class="social-link" aria-label="Instagram">IG</a>
+          </div>
+        </div>
+        <nav class="footer-col" aria-label="Quick links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="listings.html">Listings</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Categories">
+          <h4>Property Types</h4>
+          <ul>
+            <li><a href="categories.html">Apartments</a></li>
+            <li><a href="categories.html">Houses</a></li>
+            <li><a href="categories.html">Villas</a></li>
+            <li><a href="categories.html">Commercial</a></li>
+            <li><a href="categories.html">Land</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Services">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Property Search</a></li>
+            <li><a href="#">Home Valuation</a></li>
+            <li><a href="#">Mortgage Help</a></li>
+            <li><a href="#">Legal Support</a></li>
+            <li><a href="#">Relocation</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 HomeFinder. All rights reserved.</p>
+        <nav>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("open");
+      }
+      function handleSearch() {
+        alert("Search functionality — connect to your backend!");
+      }
+      function toggleFav(btn) {
+        btn.classList.toggle("active");
+        btn.textContent = btn.classList.contains("active") ? "♥" : "♡";
+      }
+    </script>
+  </body>
 </html>
